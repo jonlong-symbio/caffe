@@ -52,11 +52,10 @@ void SoftmaxWithLossLayer<Dtype>::Forward_gpu(
   Dtype valid_count = -1;
   // Only launch another CUDA kernel if we actually need the count of valid
   // outputs.
-  if (normalization_ == LossParameter_NormalizationMode_VALID &&
-      has_ignore_label_) {
+  if (has_ignore_label_) {
     caffe_gpu_asum(nthreads, counts, &valid_count);
   }
-  top[0]->mutable_cpu_data()[0] = loss / get_normalizer(normalization_,
+  top[0]->mutable_cpu_data()[0] = loss / get_normalizer(LossParameter_NormalizationMode_VALID,
                                                         valid_count);
   if (top.size() == 2) {
     top[1]->ShareData(prob_);
