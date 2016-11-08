@@ -421,7 +421,7 @@ void Solver<Dtype>::Snapshot() {
     LOG(FATAL) << "Unsupported snapshot format.";
   }
 
-  SnapshotSolverState(model_filename);
+  // SnapshotSolverState(model_filename);
 }
 
 template <typename Dtype>
