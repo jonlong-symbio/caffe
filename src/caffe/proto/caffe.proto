@@ -876,7 +876,7 @@ message MVNParameter {
 }
 
 message ParameterParameter {
-  optional BlobShape shape = 1;
+  repeated BlobShape shape = 1;
 }
 
 message PoolingParameter {
