@@ -68,6 +68,7 @@ class BaseConvolutionLayer : public Layer<Dtype> {
   Blob<int> stride_;
   /// @brief The spatial dimensions of the padding.
   Blob<int> pad_;
+  Dtype padval_;
   /// @brief The spatial dimensions of the dilation.
   Blob<int> dilation_;
   /// @brief The spatial dimensions of the convolution input.
@@ -102,7 +103,7 @@ class BaseConvolutionLayer : public Layer<Dtype> {
           kernel_shape_.cpu_data()[0], kernel_shape_.cpu_data()[1],
           pad_.cpu_data()[0], pad_.cpu_data()[1],
           stride_.cpu_data()[0], stride_.cpu_data()[1],
-          dilation_.cpu_data()[0], dilation_.cpu_data()[1], col_buff);
+          dilation_.cpu_data()[0], dilation_.cpu_data()[1], col_buff, padval_);
     } else {
       im2col_nd_cpu(data, num_spatial_axes_, conv_input_shape_.cpu_data(),
           col_buffer_shape_.data(), kernel_shape_.cpu_data(),
@@ -131,7 +132,7 @@ class BaseConvolutionLayer : public Layer<Dtype> {
           kernel_shape_.cpu_data()[0], kernel_shape_.cpu_data()[1],
           pad_.cpu_data()[0], pad_.cpu_data()[1],
           stride_.cpu_data()[0], stride_.cpu_data()[1],
-          dilation_.cpu_data()[0], dilation_.cpu_data()[1], col_buff);
+          dilation_.cpu_data()[0], dilation_.cpu_data()[1], col_buff, padval_);
     } else {
       im2col_nd_gpu(data, num_spatial_axes_, num_kernels_im2col_,
           conv_input_shape_.gpu_data(), col_buffer_.gpu_shape(),
